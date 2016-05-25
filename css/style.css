@@ -3,3 +3,7 @@
 .ng-hide {
     display: none !important;
 }
+
+button .material-icons {
+  margin-top: 7px;
+}
