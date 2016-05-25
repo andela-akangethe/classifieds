@@ -11,12 +11,57 @@
   <md-toolbar>
     <div class="md-toolbar-tools">
       <p><strong>ngClassifeds</strong></p>
-      <md-button>
+      <md-button ng-click="openSidebar()">
         <md-icon class="mdi mdi-plus-circle"></md-icon>
         New Classified
       </md-button>
     </div>
   </md-toolbar>
+
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+    <md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">Add a Classified</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+      <form>
+        <md-input-container>
+          <label for="title">Title</label>
+          <input type="text" id="title"
+            ng-model="product.title" md-autofocus
+          >
+        </md-input-container>
+        <md-input-container>
+          <label for="price">Price</label>
+          <input type="text" id="price"
+            ng-model="product.price"
+          >
+        </md-input-container>
+        <md-input-container>
+          <label for="description">Description</label>
+          <textarea type="text" id="description"
+            ng-model="product.description"  
+          >
+          </textarea>
+        </md-input-container>
+        <md-input-container>
+          <label for="image">Image Link</label>
+          <input type="text" id="image"
+            ng-model="product.image"
+          >
+        </md-input-container>
+      </form>
+      <md-button class="md-primary" ng-if="!editing" ng-click="saveClassified(product)">
+        Save
+      </md-button>
+      <md-button ng-if="editing" class="md-primary" ng-click="saveEdit()">
+        Save Edit
+      </md-button>
+      <md-button class="md-warn" ng-click="closeSidebar()">
+        Cancel
+      </md-button>
+      <pre>{{ product | json }}</pre>
+    </md-content>
+  </md-sidenav>
 
   <md-content class="md-padding" layout="row" layout-wrap>
     <md-card ng-repeat="classified in classifieds" flex="30" flex-sm="100 " flex-xs="100">
@@ -64,7 +109,8 @@
         <div class="classified-admin" ng-if="showAdmin">
           <h3>Admin</h3>
           <div layout="row">
-            <md-button 
+            <md-button
+              ng-click="editClassified(classified)" 
               class="md-primary">
               Edit
             </md-button>
@@ -85,5 +131,6 @@
   <script src="libs/angular-material/angular-material.js"></script>
   <script src="scripts/app.js"></script>
   <script src="scripts/controller/classifiedsController.js"></script>
+  <script src="scripts/services/classifiedsFactory.js"></script>
 </body>
 </html>
